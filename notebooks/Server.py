@@ -1,7 +1,7 @@
 import socket
 
 class Server:
-    def __init__(self, host="", port=8081):
+    def __init__(self, host="206.87.203.235", port=5111):
         self.host = host
         self.port = port
         self.server_socket = None
@@ -27,7 +27,13 @@ class Server:
     def receive(self):
         try:
             if self.connection:
-                data = self.connection.recv(1024).decode()
+                buffer = b""  # Use a buffer to accumulate chunks
+                while True:
+                    chunk = self.connection.recv(1024)
+                    if not chunk:  # No more data to read
+                        break
+                buffer += chunk
+                data = buffer.decode()
                 print(f"Received from client: {data}")
                 return data
             else:
@@ -65,12 +71,3 @@ class Server:
                 print("Server is not running.")
         except Exception as e:
             print(f"Error stopping server: {e}")
-
-server = Server()
-server.start()
-server.accept_connection()
-data = server.receive()
-if data:
-    server.send("hello")
-server.close_connection()
-server.stop()

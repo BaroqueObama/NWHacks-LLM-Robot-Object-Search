@@ -1,7 +1,7 @@
 import socket
 
 class Client:
-    def __init__(self, host="", port=8081):
+    def __init__(self, host="206.87.203.235", port=5000):
         self.host = host
         self.port = port
         self.client_socket = None
@@ -45,9 +45,3 @@ class Client:
                 print("Client is not connected to the server.")
         except Exception as e:
             print(f"Error disconnecting: {e}")
-
-client = Client()
-client.connect()
-client.send("hi")
-client.receive()
-client.disconnect()
