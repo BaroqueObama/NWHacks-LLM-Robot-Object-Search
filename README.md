@@ -1,28 +1,35 @@
 # JetBot
+Click image for video of Robot demo (8 times speed**)  
 
-<!--[<img src="https://img.shields.io/discord/553852754058280961.svg">](https://discord.gg/Ady6NtF) -->
+[![YouTube](http://i.ytimg.com/vi/S3yCFuoae14/hqdefault.jpg)](https://www.youtube.com/watch?v=S3yCFuoae14)
 
-> Looking for a quick way to get started with JetBot?  Many third party kits are [now available](https://jetbot.org/master/third_party_kits.html)!
+Robot takes a picture of the dog when it spots it.
+<p align="center">
+  <img src="media/gallery.jpg" width="200"/>
+  <img src="media/gallery-1.jpg" width="200"/>
+  <img src="media/gallery-2.jpg" width="200"/>
+</p>
+Our setup out in the cold Canadian winter night.  
 
-<img src="../..//wiki/images/jetson-jetbot-illustration_1600x1260.png" height="256">
+![our setup out in the cold canadian winter night](media/setup.jpeg)
 
-JetBot is an open-source robot based on NVIDIA Jetson Nano that is
+## Inspiration
+Inspired by the Palisades fires, where strong Pacific winds disrupted firefighting efforts and cause heavy smoke, we sought to create an autonomous system capable of locating people and animals trapped in smoke-filled environments during wildfires or earthquakes, using LLMs as navigation.
 
-* **Affordable** - Less than $150 add-on to Jetson Nano
-* **Educational** - Tutorials from basic motion to AI based collision avoidance
-* **Fun!** - Interactively programmed from your web browser
+## What it does
+An LLM-powered robot autonomously navigates smoke-filled environments, using multimodal input to analyze the live image feed from the robot and reason it's next movements based on what it sees and it's past actions.
 
-Building and using JetBot gives the hands on experience needed to create entirely new AI projects.
+## How we built it
+We mounted an Nvidia Jetson Nano on a JetBot rover (essentially a donkey car) to collect image data and control it. We first used the OpenAI API as the "reasoning brains" of the robot, then later switched to a local server (with an RTX 3070) running Llama 3.2-vision (11B) using Ollama to keep things remote as service may be down in disaster sites.. Images are processed with prompting and previous moves are fed in with LangChain memory. The robot Jetson sends the data to a server and recieves move commands back.
 
-To get started, read the [JetBot documentation](https://jetbot.org).
+## Challenges we ran into
+Limited Jetson Nano disk space required shifting heavy processes to the server. Training the LLM to use conversation history and confidently navigate was another hurdle, requiring careful prompt engineering.
 
-## Get involved
+## Accomplishments that we're proud of
+We successfully implemented LLM contextual reasoning using LangChain and prompt engineering techniques. It was an exciting challenge to fine-tune the process with more specific examples, ensuring greater precision and reliability. Additionally, we achieved seamless integration by linking everything with socket, creating a smooth and efficient system. Also, we're proud of camping outside all night for our dry ice smokey environment demo, enjoying multiple friendly visits from curious campus security.
 
-We really appreciate any feedback related to JetBot, and also just enjoy seeing what you're working on!  There is a growing community of Jetson Nano and JetBot users.  It's easy to get involved involved...
+## What we learned
+We deepened our understanding of implementing chain-of-thought reasoning for LLMs and the importance of precision in prompt engineering to improve outcomes. The integration process also taught us valuable lessons about managing system architecture and achieving smooth communication between components. Beyond the technical insights, the demo preparation reinforced the significance of adaptability and creative problem-solving when working in dynamic environments.
 
-<!--* Join the [chat server](https://discord.gg/Ady6NtF)-->
-* Ask a question and discuss JetBot related topics on the [JetBot GitHub Discussions](https://github.com/NVIDIA-AI-IOT/jetbot/discussions)
-* Report a bug by [creating an issue](https://github.com/NVIDIA-AI-IOT/jetbot/issues)
-* Share your project or ask a question on the [Jetson Developer Forums](https://devtalk.nvidia.com/default/board/139/jetson-embedded-systems/)
-
-
+## What's next for Controlling Robots with LLMs through Smoke
+We aim to integrate Meta's DinoV2 model for depth estimation and 3D mapping, improving detection of people and animals in smoke. We also plan to use reinforcement learning to create a more robust and autonomous system for life-saving operations.
